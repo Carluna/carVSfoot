@@ -2,7 +2,7 @@
 
 How many roads are there specifically for cars and how many for people who go by foot or bicycle? Can you find which map belongs to which group?
 
-![](data/final_map.png)
+![](data/final_map.svg)
 
 The ways were received by using OSM data with the package `osmextract` in R. The groups for for the ways for cars I used are `c("primary", "secondary", "tertiary", "trunk", "residential", "primary_link", "secondary_link", "tertiary_link", "trunk_link",   "tertiary_link", "unclassified")`.
 

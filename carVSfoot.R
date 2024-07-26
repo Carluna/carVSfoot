@@ -63,12 +63,14 @@ map_cars <- ggplot() +
   geom_sf(data = sh_freiburg,
           aes(geometry = geometry),
           color = "grey70",
-          fill = "grey90"
+          fill = "grey90",
+          linewidth = 0.5
   ) +
   geom_sf(data = waterways, 
           aes(geometry = geometry),
           color = "blue",
-          alpha = 0.4
+          alpha = 0.4,
+          linewidth = 0.5
           ) +
   geom_sf(data = streets |> filter(highway %in% ls_roads), 
           aes(geometry = geometry),
@@ -76,7 +78,7 @@ map_cars <- ggplot() +
   theme_void() +
   labs(caption = "Data from: \nOpenStreet Map \nStadt Freiburg, www.freiburg.de\n\n R. Kubina\n") +
   theme(plot.caption = element_text(hjust = 0,
-                                    family = "roboto", 
+                                    family = "Roboto Slab", 
                                     color = "grey15"
                                     )
         )
@@ -85,35 +87,42 @@ map_foot <- ggplot() +
   geom_sf(data = sh_freiburg,
           aes(geometry = geometry),
           color = "grey70",
-          fill = "grey90"
+          fill = "grey90",
+          linewidth = 0.5
   ) +
   geom_sf(data = waterways, 
           aes(geometry = geometry),
           color = "blue",
-          alpha = 0.4
+          alpha = 0.4,
+          linewidth = 0.5
   ) +
   geom_sf(data = streets |> filter(highway %in% ls_foot), 
           aes(geometry = geometry),
           color = "grey10") +
   theme_void() +
-  labs(title = "\nComparison of streets for cars and pedestrians/cyclists",
-       subtitle = "Who can go where in Freiburg?") +
+  labs(title = "\nComparison of streets for cars and pedestrians/cyclists  ",
+       subtitle = "Who can go where in Freiburg?  ") +
   theme(plot.title = element_text(hjust = 1,
                                   family = "Playfair Display",
                                   face = "bold",
-                                  size = 15, 
+                                  size = 20, 
                                   color = "grey15"),
         plot.subtitle = element_text(hjust = 1,
                                      family = "Playfair Display", 
-                                     color = "grey15")
+                                     color = "grey15",
+                                     size = 15)
         )
 
 
 map_fin <- cowplot::plot_grid(map_cars, map_foot, align = "h") +
   theme(plot.background = element_rect(fill = "orange", colour = "orange"))
 
-# ggsave(plot = map_fin, 
-#        filename = "C:/Users/ruben/Documents/Programmieren/stadtplan/data/final_map.png",
-#        height = 6,
-#        width = 12,
-#        units = "cm")
+save_plot(plot = map_fin,
+       filename = "C:/Users/ruben/Documents/Programmieren/stadtplan/data/final_map.png",
+       base_asp = 1.75)
+
+svg(file="C:/Users/ruben/Documents/Programmieren/stadtplan/data/final_map.svg",
+    width = 14,
+    height = 8)
+map_fin
+dev.off()
